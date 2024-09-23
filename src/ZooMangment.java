@@ -25,7 +25,7 @@ class ZooMangment {
         myZoo.showAnimals();
         System.out.println(myZoo.searchAnimal(lion2));
 
-
+        System.out.println("hello from prosit3");
     }
 
 
