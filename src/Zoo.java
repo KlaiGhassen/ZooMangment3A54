@@ -1,58 +1,64 @@
 public class Zoo {
     Animal[] animals;
     String name, city;
-    int nbrCages;
+    final int NBR_CAGES = 3;
     int nbrAnimals = 0;
 
-    Zoo(String name, String city, int nbrCages) {
-        animals = new Animal[nbrCages];
+    Zoo(String name, String city) {
+        animals = new Animal[NBR_CAGES];
         this.name = name;
         this.city = city;
-        this.nbrCages = nbrCages;
     }
 
-    boolean addAimall(Animal animal) {
-        if (searchAnimal(animal) == -1 && nbrAnimals < nbrCages) {
-            animals[nbrAnimals] = animal;
+
+    @Override
+    public String toString() {
+        return "name : " + name + " city : " + city + "nbrCages : " + NBR_CAGES + "animals numbers  : " + nbrAnimals;
+
+    }
+
+    boolean addAnimal(Animal animal) {
+        if (this.searchAnimal(animal.name) == -1 && nbrAnimals < NBR_CAGES) {
+            this.animals[nbrAnimals] = animal;
             nbrAnimals++;
             return true;
         }
         return false;
     }
 
-    boolean removeAnimal(Animal animal) {
-        int deletedIndex = searchAnimal(animal);
-        animals[deletedIndex] = null;
-        return true;
-
-    }
-
-    void dispayZoo() {
-        System.out.println("name : " + name + " city : " + city + "nbrCages : " + nbrCages);
-    }
-
-    @Override
-    public String toString() {
-        return "name : " + name + " city : " + city + "nbrCages : " + nbrCages + "animals numbers  : " + nbrAnimals;
-
-    }
-
-    void showAnimals() {
+    void displayAnimals() {
         for (Animal animal : animals) {
             System.out.println(animal);
-
-
         }
+
     }
 
-    int searchAnimal(Animal animal) {
-        for (int i = 0; i < nbrCages; i++) {
-            if (animals[i].name.equals(animal.name)) {
+    int searchAnimal(String name) {
+        for (int i = 0; i < nbrAnimals; i++) {
+            if (animals[i].name.equals(name)) {
                 return i;
             }
+
         }
         return -1;
     }
 
+    boolean removeAnimal(Animal animal) {
+        int index = searchAnimal(animal.name);
+        this.animals[index] = null;
+        return true;
+    }
+
+    boolean isZooFull() {
+        return nbrAnimals <= NBR_CAGES;
+
+    }
+
+    Zoo comparerZoo(Zoo zoo1, Zoo zoo2) {
+        if (zoo1.nbrAnimals > zoo2.nbrAnimals)
+            return zoo1;
+        return zoo2;
+
+    }
 
 }
